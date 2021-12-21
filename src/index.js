@@ -7,38 +7,38 @@ const overlay = document.getElementById('overlay');
 const commentButtons = document.querySelectorAll('[data-comment-target]');
 const closeCommentButtons = document.querySelectorAll('[data-close-button]')
 
-// commentButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     const comment = document.querySelector(button.dataset.commentTarget)
-//     openComment(comment)
-//   })
-// })
+commentButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const comment = document.querySelector(button.dataset.commentTarget)
+    openComment(comment)
+  })
+})
 
-// overlay.addEventListener('click', () => {
-//   const comments = document.querySelectorAll('.details.active')
-//   comments.forEach(details => {
-//     closeComment(details)
-//   })
-// })
+overlay.addEventListener('click', () => {
+  const comments = document.querySelectorAll('.details.active')
+  comments.forEach(details => {
+    closeComment(details)
+  })
+})
 
-// closeCommentButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     const comment = button.closest('.details')
-//     closeComment(comment)
-//   })
-// })
+closeCommentButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const comment = button.closest('.details')
+    closeComment(comment)
+  })
+})
 
-// function openComment(comment) {
-//   if (comment == null) return
-//   comment.classList.add('active')
-//   overlay.classList.add('active')
-// }
+function openComment(comment) {
+  if (comment == null) return
+  comment.classList.add('active')
+  overlay.classList.add('active')
+}
 
-// function closeComment(comment) {
-//     if (comment == null) return
-//     comment.classList.remove('active')
-//     overlay.classList.remove('active')
-//   }
+function closeComment(comment) {
+    if (comment == null) return
+    comment.classList.remove('active')
+    overlay.classList.remove('active')
+  }
 
 async function displayDetails(pokeID) {
   const pokemon = await GET.aPokemon(pokeID);
