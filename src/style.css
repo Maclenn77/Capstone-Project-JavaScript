@@ -4,7 +4,8 @@
 *, *::after, *::before {
     box-sizing: border-box;
   }
-/*   
+
+  
   .details {
     position: fixed;
     top: 50%;
@@ -75,4 +76,4 @@
   #overlay.active {
     opacity: 1;
     pointer-events: all;
-  } */
+  }
