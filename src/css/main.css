@@ -1,3 +1,5 @@
-body {
-    min-height: 100vh;
+.card-title {
+    font-family: 'VT323', monospace;
+    font-weight: 500;
+    font-size: 2rem;
 }
