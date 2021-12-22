@@ -1,10 +1,4 @@
-body {
-    min-height: 100vh;
-}
 
-h2 {
-  font-family: 'Press Start 2P', cursive;
-}
 /* Modal style */
 .modal {
     font-family: 'VT323', monospace;
@@ -33,11 +27,7 @@ h2 {
     align-items: center;
     border-bottom: 1px solid black;
   }
-  
- .modal-header .title {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
+ 
   
 .modal-header .close-button {
     cursor: pointer;
@@ -74,3 +64,36 @@ h2 {
     opacity: 1;
     pointer-events: all;
   }
+
+.nav-link,
+h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.card-title {
+  font-family: 'VT323', monospace;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.heart-btn {
+  color: white;
+  width: 150px;
+  height: 150px;
+  right: -60px;
+  top: -60px;
+  padding-right: 45px;
+  padding-top: 45px;
+}
+
+.heart-btn:hover {
+  color: red;
+}
+
+.heart-btn i {
+  font-size: 1.5em;
+}

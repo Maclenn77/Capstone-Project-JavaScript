@@ -10,13 +10,15 @@
     "watch": "webpack --watch",
     "lintHTML": "npx hint .",
     "lintStyle": "npx stylelint \"**/*.{css,scss}\" --fix",
-    "lintJS": "npx eslint . --fix"
+    "lintJS": "npx eslint . --fix",
+    "fixLinters": "npm run lintStyle && npm run lintJS && npm run lintHTML"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.16.0",
+    "babel-eslint": "^10.1.0",
     "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
