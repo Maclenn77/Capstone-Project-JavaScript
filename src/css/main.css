@@ -3,33 +3,33 @@
 } */
 
 .nav-link {
-    font-family: 'Press Start 2P', cursive;
-    font-weight: 500;
-    font-size: 1rem;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .card-title {
-    font-family: 'VT323', monospace;
+  font-family: 'VT323', monospace;
 }
 
 .page-link {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .heart-btn {
-    color: white;
-    width: 150px;
-    height: 150px;
-    right: -60px;
-    top: -60px;
-    padding-right: 45px;
-    padding-top: 45px;
+  color: white;
+  width: 150px;
+  height: 150px;
+  right: -60px;
+  top: -60px;
+  padding-right: 45px;
+  padding-top: 45px;
 }
 
-.heart-btn:hover{
-    color: red;
+.heart-btn:hover {
+  color: red;
 }
 
 .heart-btn i {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
