@@ -57,13 +57,13 @@ const changeLinks = (currentPage) => {
 };
 
 const getLikesForCurrentPage = async (pageNumber) => {
-  const result = await involvementAPI.getLikes().then(arr => {
+  const result = await involvementAPI.getLikes().then((arr) => {
     const pokeIdInPageStart = (pageNumber * pokemonsPerPage) - pokemonsPerPage + 1;
     const pokeIdInPageEnd = pageNumber * pokemonsPerPage;
-    return arr.filter((obj) => obj.item_id >= pokeIdInPageStart && obj.item_id <= pokeIdInPageEnd)
+    return arr.filter((obj) => obj.item_id >= pokeIdInPageStart && obj.item_id <= pokeIdInPageEnd);
   });
   return result;
-}
+};
 
 const renderUI = async (pageNumber) => {
   pokemonCardsSection.innerHTML = '';
@@ -74,7 +74,7 @@ const renderUI = async (pageNumber) => {
       if (pokemonId >= 899) {
         pokemonId += 9102;
       }
-      const likes = likesArr.find(obj => obj.item_id === pokemonId)?.likes;
+      const likes = likesArr.find((obj) => obj.item_id === pokemonId)?.likes;
       const card = createCard(pokemonId, pokemon, likes);
       pokemonCardsSection.appendChild(card);
     });
