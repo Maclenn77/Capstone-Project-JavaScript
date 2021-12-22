@@ -7,3 +7,21 @@
 .page-link {
     cursor: pointer;
 }
+
+.heart-btn {
+    color: white;
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    top: -60px;
+    padding-right: 45px;
+    padding-top: 45px;
+}
+
+.heart-btn:hover{
+    color: red;
+}
+
+.heart-btn i {
+    font-size: 1.5em;
+}

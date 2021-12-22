@@ -9,8 +9,12 @@ const pokemonsPerPage = 12;
 
 const createCard = (pokemonId, pokemon) => {
   const cardDiv = document.createElement("div");
-  cardDiv.classList = "card col-md-3 d-flex flex-column";
+  cardDiv.classList = "card col-md-3 d-flex flex-column overflow-hidden";
   cardDiv.innerHTML = `
+  <button class="position-absolute bg-dark rounded-circle heart-btn">
+    <p class="text-white">0</p>
+    <i class="far fa-heart"></i>
+  </button>
   <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${
     pokemon.name
   }'s image">
