@@ -1,5 +1,4 @@
 import './style.css';
-import get from './pokemon.js';
 import pokeAPI from './pokeAPIHandler.js';
 
 const pokemonCardsSection = document.querySelector('.pokemon-cards');
@@ -8,59 +7,51 @@ let pageNum = 1;
 const pokemonsPerPage = 12;
 const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
-const openModalButtons = document.querySelectorAll('[data-modal-target]')
-const closeModalButtons = document.querySelectorAll('[data-close-button]')
-const overlay = document.getElementById('overlay')
+const closeModalButtons = document.querySelectorAll('[data-close-button]');
+const overlay = document.getElementById('overlay');
 
 // Modal Functions
+
+async function displayDetails(pokeID) {
+  let pokemon = await pokeAPI.aPokemon(pokeID);
+  pokeHeader.insertAdjacentHTML('beforeend', `<h2 class='col-12'>${pokemon.name.toUpperCase()}, #${pokeID}</p>`);
+  pokeHeader.insertAdjacentHTML('afterbegin', `<img src='${pokemon.image}' alt='A sprite of ${pokemon.name}' class='col-10'>`);
+  pokemon = [pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
+  let i = 0;
+  pokeDetails.forEach((span) => {
+    span.innerHTML = pokemon[i];
+    i += 1;
+  });
+}
+
 function openModal(modal, cardId) {
-  if (modal == null) return
-  modal.classList.add('active')
-  overlay.classList.add('active')
+  if (modal == null) return;
+  modal.classList.add('active');
+  overlay.classList.add('active');
   displayDetails(cardId);
 }
 
 function closeModal(modal) {
-  if (modal == null) return
-  modal.classList.remove('active')
-  overlay.classList.remove('active')
+  if (modal == null) return;
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
   pokeHeader.removeChild(pokeHeader.firstChild);
   pokeHeader.removeChild(pokeHeader.lastChild);
 }
 
-openModalButtons.forEach(button => {
-    button.addEventListener('click', (x) => {
-      const modal = document.querySelector(button.dataset.modalTarget)
-      const cardId = x.target.parentElement.parentElement.id;
-      openModal(modal, cardId)
-    })
-  })
-  
-  overlay.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.modal.active')
-    modals.forEach(modal => {
-      closeModal(modal)
-    })
-  })
-  
-  closeModalButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const modal = button.closest('.modal')
-      closeModal(modal)
-    })
-  })
-
-async function displayDetails(pokeID) {
-  let pokemon = await get.aPokemon(pokeID);
-  pokeHeader.insertAdjacentHTML('beforeend',`<h2 class='col-12'>${pokemon.name.toUpperCase()}, #${pokeID}</p>`);
-  pokeHeader.insertAdjacentHTML('afterbegin', `<img src='${pokemon.image}' alt='A sprite of ${pokemon.name}' class='col-10'>`);
-  pokemon = [pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
-  let i = 0;
-  pokeDetails.forEach(span => {
-      span.innerHTML = pokemon[i];
-      i++;
+overlay.addEventListener('click', () => {
+  const modals = document.querySelectorAll('.modal.active');
+  modals.forEach((modal) => {
+    closeModal(modal);
   });
-}
+});
+
+closeModalButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const modal = button.closest('.modal');
+    closeModal(modal);
+  });
+});
 
 const createCard = (pokemonId, pokemon) => {
   const cardDiv = document.createElement('div');
@@ -76,9 +67,13 @@ const createCard = (pokemonId, pokemon) => {
 }'s image">
   <div class="card-body text-center mt-auto">
       <h4 class="card-title fs-4">${pokemon.name}</h4>
-      <a href="#" class="btn btn-outline-primary">Comments</a>
+      <a href="#" class="btn btn-outline-primary commentButton">Comments</a>
   </div>
   `;
+  cardDiv.querySelector('.commentButton').addEventListener('click', () => {
+    const modal = document.querySelector('#modal');
+    openModal(modal, cardDiv.id);
+  });
   return cardDiv;
 };
 
