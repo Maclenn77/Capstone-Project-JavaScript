@@ -1,7 +1,15 @@
+/* * {
+    font-family: 'VT323', monospace;
+} */
+
+.nav-link {
+    font-family: 'Press Start 2P', cursive;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
 .card-title {
     font-family: 'VT323', monospace;
-    font-weight: 500;
-    font-size: 2rem;
 }
 
 .page-link {

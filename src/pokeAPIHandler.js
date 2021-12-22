@@ -1,7 +1,7 @@
 const pokemonsPerPage = 12;
 const apiURL = "https://pokeapi.co/api/v2/pokemon/";
 const apiSpritesURL = (id) =>
-  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id<899?id:parseInt(id, 10)+9102}.png`;
+  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
 const fetchPokemonsData = (pageNum) =>
   fetch(

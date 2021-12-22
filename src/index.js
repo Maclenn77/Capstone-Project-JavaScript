@@ -10,6 +10,7 @@ const pokemonsPerPage = 12;
 const createCard = (pokemonId, pokemon) => {
   const cardDiv = document.createElement("div");
   cardDiv.classList = "card col-md-3 d-flex flex-column overflow-hidden";
+  cardDiv.id = pokemonId;
   cardDiv.innerHTML = `
   <button class="position-absolute bg-dark rounded-circle heart-btn">
     <p class="text-white">0</p>
@@ -56,7 +57,10 @@ const renderUI = (pageNumber) => {
   pokemonCardsSection.innerHTML = '';
   pokeAPI.fetchPokemonsData(pageNumber).then((data) => {
     data.results.forEach((pokemon, index) => {
-      const pokemonId = index + ((pageNumber - 1) * pokemonsPerPage) + 1;
+      let pokemonId = index + ((pageNumber - 1) * pokemonsPerPage) + 1;
+      if(pokemonId>=899) {
+        pokemonId+=9102;
+      }
       const card = createCard(pokemonId, pokemon);
       pokemonCardsSection.appendChild(card);
     });
