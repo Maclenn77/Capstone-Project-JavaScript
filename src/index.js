@@ -251,3 +251,6 @@ pageLinks.forEach((pageLink) => {
 });
 
 renderUI(pageNum);
+pokeAPI.fetchPokemonsCount().then((data) => {
+  document.querySelector('.pokemons-count').textContent = data
+})
