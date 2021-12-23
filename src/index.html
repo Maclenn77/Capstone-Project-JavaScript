@@ -11,7 +11,7 @@
 </head>
 <body class="d-flex flex-column">
     <header>
-        <nav class="navbar-fixed-top navbar navbar-expand-lg navbar-light px-4">
+        <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light px-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="./images/pokeball-logo.png" alt="Pokemon logo" width="70" height="70">
@@ -35,6 +35,7 @@
             </div>
         </nav>
     </header>
+    <div class="comment-added-div">Your comment was sent successfully!</div>
     <main class="container mb-5">
         <header class="mb-5"><img src="./images/pokemon-word-logo.png" class="mx-auto" width="300" alt="Pokemon Logo"></header>
         <section class="pokemon-cards d-flex flex-wrap gap-3 justify-content-center mb-5">
@@ -50,6 +51,14 @@
             <div class='w-100'></div>
             <p class='col-6'>Type: <span class="details"></span></p>
             <p class='col-6'>Base Experience: <span class="details"></span></p>
+            <h2 class="w-100 text-center mt-2">Comments</h2>
+            <div class="modal-comments mt-4 row"></div>
+            <h2 class="w-100 text-center">Add new comment</h2>
+            <form class="row flex-column">
+                <input type="text" class="mt-2 col-8" id="username" placeholder="Your name">
+                <input type="text" class="mt-2 col-10" id="insights" placeholder="Your insights">
+                <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>
+            </form>
           </div>
         </div>
         <div id="overlay"></div>

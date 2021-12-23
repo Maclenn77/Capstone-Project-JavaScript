@@ -10,6 +10,44 @@ const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.getElementById('overlay');
+let addComment = document.querySelector('#add-comment');
+const modalComments = document.querySelector('.modal-comments');
+let pokeIdForOpenedModal = null;
+
+// Comments in the modal popup
+const createComment = (comment) => {
+  const line = document.createElement('hr');
+  const date = document.createElement('span');
+  date.classList = 'col-3 comment-date';
+  date.textContent = `${comment.creation_date}`;
+  const username = document.createElement('span');
+  username.classList = 'col-3 comment-user';
+  username.textContent = `${comment.username}`;
+  const aComment = document.createElement('span');
+  aComment.classList = 'col-6 comment';
+  aComment.textContent = `${comment.comment}`;
+  modalComments.appendChild(date);
+  modalComments.appendChild(username);
+  modalComments.appendChild(aComment);
+  modalComments.appendChild(line);
+};
+
+async function displayComments(pokeID) {
+  const itemComments = await involvementAPI.Comments(pokeID);
+  const header = document.createElement('p');
+  modalComments.innerHTML = '';
+  header.classList = 'row';
+  if (!itemComments.length) {
+    header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
+    modalComments.appendChild(header);
+  } else {
+    header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
+    modalComments.appendChild(header);
+    itemComments.forEach((comment) => {
+      createComment(comment);
+    });
+  }
+}
 
 // Modal Functions
 
@@ -27,10 +65,31 @@ async function displayDetails(pokeID) {
 
 function openModal(modal, cardId) {
   if (modal == null) return;
+  pokeIdForOpenedModal = cardId;
   modal.classList.add('active');
   overlay.classList.add('active');
   displayDetails(cardId);
+  displayComments(cardId);
 }
+
+addComment.addEventListener('click', async (e) => {
+  e.preventDefault();
+  addComment.disabled = true;
+  const username = document.getElementById('username').value;
+  const insights = document.getElementById('insights').value;
+  const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
+  const comment = { creation_date: 'Recently created', username, comment: insights };
+  document.querySelector('.comment-added-div').classList.add('active');
+  setTimeout(() => {
+    document.querySelector('.comment-added-div').classList.remove('active');
+  }, 2000);
+  createComment(comment);
+  if (await response === true) {
+    addComment.disabled = false;
+  }
+  document.getElementById('username').value = '';
+  document.getElementById('insights').value = '';
+});
 
 function closeModal(modal) {
   if (modal == null) return;
@@ -38,6 +97,32 @@ function closeModal(modal) {
   overlay.classList.remove('active');
   pokeHeader.removeChild(pokeHeader.firstChild);
   pokeHeader.removeChild(pokeHeader.lastChild);
+  modalComments.innerHTML = '';
+  const success = document.querySelectorAll('.success-message');
+  if (success.length >= 1) {
+    const form = document.createElement('form');
+    form.classList = 'row flex-column';
+    form.innerHTML = `
+    <input type="text" class="mt-2 col-8" name="" id="username" placeholder="Your name">
+    <input type="text" class="mt-2 col-10" name="" id="insights" placeholder="Your insights">
+    <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
+    success[0].replaceWith(form);
+    addComment = document.querySelector('#add-comment');
+    addComment.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const insights = document.getElementById('insights').value;
+      const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
+      const comment = { creation_date: 'Recently created', username, comment: insights };
+      const success = document.createElement('div');
+      success.classList = 'success-message';
+      success.textContent = 'Your comment was sent to us!';
+      createComment(comment);
+      if (response === true) {
+        addComment.parentElement.replaceWith(success);
+      }
+    });
+  }
 }
 
 overlay.addEventListener('click', () => {
@@ -68,7 +153,7 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
 }'s image">
   <div class="card-body text-center mt-auto">
       <h4 class="card-title fs-4">${pokemon.name}</h4>
-      <a href="#" class="btn btn-outline-primary commentButton">Comments</a>
+      <a class="btn btn-outline-primary commentButton">Comments</a>
   </div>
   `;
   cardDiv.querySelector('.commentButton').addEventListener('click', () => {
