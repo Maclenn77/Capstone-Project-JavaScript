@@ -18,7 +18,7 @@ const fetchPokemonsData = (pageNum, pokemonsPerPage) => fetch(
 
 const fetchPokemonsCount = () => fetch(
   `${apiURL}?limit=100000`,
-).then((data) => data.json()).then(data => data.count);
+).then((data) => data.json()).then((data) => data.count);
 
 async function aPokemon(pokeID) {
   const image = apiSpritesURL(pokeID);
@@ -33,4 +33,6 @@ async function aPokemon(pokeID) {
   return pokemon;
 }
 
-export default { fetchPokemonsData, fetchPokemonsCount, apiSpritesURL, aPokemon };
+export default {
+  fetchPokemonsData, fetchPokemonsCount, apiSpritesURL, aPokemon,
+};

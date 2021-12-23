@@ -146,7 +146,7 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
   cardDiv.innerHTML = `
   <button class="position-absolute bg-dark rounded-circle heart-btn">
     <p class="text-white likes-counter fw-bold">${likes}</p>
-    <i class="${likes > 0?'fas':'far'} fa-heart"></i>
+    <i class="${likes > 0 ? 'fas' : 'far'} fa-heart"></i>
   </button>
   <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${
   pokemon.name
@@ -165,7 +165,7 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
   likeBtn.addEventListener('click', async () => {
     likeBtn.disabled = true;
     const response = await involvementAPI.postLike(cardDiv.id);
-    if(await response) {
+    if (await response) {
       likeBtn.disabled = false;
       LikesCounterDiv.textContent = parseInt(LikesCounterDiv.textContent, 10) + 1;
       LikesCounterDiv.nextElementSibling.classList.add('fas');
@@ -252,5 +252,5 @@ pageLinks.forEach((pageLink) => {
 
 renderUI(pageNum);
 pokeAPI.fetchPokemonsCount().then((data) => {
-  document.querySelector('.pokemons-count').textContent = data
-})
+  document.querySelector('.pokemons-count').textContent = data;
+});
