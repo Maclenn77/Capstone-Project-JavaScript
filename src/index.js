@@ -8,7 +8,7 @@ let pageNum = 1;
 const pokemonsPerPage = 12;
 const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
-const closeModalButtons = document.querySelectorAll('[data-close-button]');
+const closeModalButtons = document.querySelectorAll('.close-button');
 const modalComments = document.querySelector('.modal-comments');
 const overlay = document.getElementById('overlay');
 
@@ -59,29 +59,36 @@ closeModalButtons.forEach((button) => {
 
 // Comments in the modal popup
 const createComment = (comment) => {
+  const line = document.createElement('hr');
   const date = document.createElement('span');
-  date.classList = 'col-2 comment-date';
+  date.classList = 'col-3 comment-date';
   date.textContent = `${comment.creation_date}`;
   const username = document.createElement('span');
-  username.classList = 'col-2 comment-user';
+  username.classList = 'col-3 comment-user';
   username.textContent = `${comment.username}`;
   const aComment = document.createElement('span');
-  aComment.classList = 'col-8 comment';
+  aComment.classList = 'col-6 comment';
   aComment.textContent = `${comment.comment}`;
   modalComments.appendChild(date);
   modalComments.appendChild(username);
   modalComments.appendChild(aComment);
+  modalComments.appendChild(line);
 }
 
 async function displayComments(pokeID) {
   const itemComments = await InvolmentAPI.Comments(pokeID);
   const header = document.createElement('p');
-  header.classList ='row';
-  header.innerHTML = `<span class='col-2 h-date'>Date</span><span class='col-2 h-user'>User</span><span class='col-8 h-comment'>Comment</span>`
-  modalComments.appendChild(header);
-  await itemComments.forEach(comment => {
-    createComment(comment);
-  });
+  header.classList = 'row';
+  if (await itemComments.length === undefined) {
+    header.innerHTML = `<span class='col-12 h6'>No comments yet</span>`;
+    modalComments.appendChild(header);
+  } else {
+    header.innerHTML = `<span class='col-3 h6'>Date</span><span class='col-3 h6'>User</span><span class='col-6 h6'>Comment</span>`;
+    modalComments.appendChild(header);
+    itemComments.forEach(comment => {
+      createComment(comment);
+    });
+  }; 
 }
 
 const createCard = (pokemonId, pokemon) => {
