@@ -132,7 +132,6 @@ overlay.addEventListener('click', () => {
   });
 });
 
-console.log(closeModalButtons)
 closeModalButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const modal = button.closest('.modal');
