@@ -8,8 +8,7 @@ let pageNum = 1;
 const pokemonsPerPage = 12;
 const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
-const closeModalButtons = document.querySelectorAll('.close-button');
-const modalComments = document.querySelector('.modal-comments');
+const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.getElementById('overlay');
 let addComment = document.querySelector('#add-comment');
 let pokeIdForOpenedModal = null;
@@ -146,7 +145,8 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
     <p class="text-white">${likes}</p>
     <i class="far fa-heart"></i>
   </button>
-  <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${pokemon.name
+  <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${
+  pokemon.name
 }'s image">
   <div class="card-body text-center mt-auto">
       <h4 class="card-title fs-4">${pokemon.name}</h4>
