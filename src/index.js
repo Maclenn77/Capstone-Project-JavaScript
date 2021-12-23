@@ -71,7 +71,15 @@ function openModal(modal, cardId) {
   addComment.addEventListener('click', async () => {
     const username = document.getElementById('username').value;
     const comment = document.getElementById('insights').value;
-    involvementAPI.postComment(cardId, username, comment);
+    const response = await involvementAPI.postComment(cardId, username, comment);
+    const success = document.createElement('div');
+    success.classList = 'success-message';
+    success.textContent = 'Your comment was sent to us!';
+    alert(response);
+    if (response === true) {
+      alert(success);
+      addComment.parentElement.replaceWith(success);      
+    };
   });
 }
 

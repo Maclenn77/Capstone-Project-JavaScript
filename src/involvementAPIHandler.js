@@ -27,7 +27,7 @@ async function postComment(itemId, username, comment) {
     },
     body: JSON.stringify(data),
   });
-  return response;
+  return response.ok;
 }
 
 export default { getLikes, Comments, postComment };
