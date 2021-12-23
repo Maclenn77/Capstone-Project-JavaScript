@@ -1,4 +1,3 @@
-const pokemonsPerPage = 12;
 const apiURL = 'https://pokeapi.co/api/v2/pokemon/';
 const apiSpritesURL = (id) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
@@ -11,11 +10,15 @@ function Pokemon(name, height, weight, types, exp, image) {
   this.image = image;
 }
 
-const fetchPokemonsData = (pageNum) => fetch(
+const fetchPokemonsData = (pageNum, pokemonsPerPage) => fetch(
   `${apiURL}?limit=${pokemonsPerPage}&offset=${
     (pageNum - 1) * pokemonsPerPage
   }`,
 ).then((data) => data.json());
+
+const fetchPokemonsCount = () => fetch(
+  `${apiURL}?limit=100000`,
+).then((data) => data.json()).then((data) => data.count);
 
 async function aPokemon(pokeID) {
   const image = apiSpritesURL(pokeID);
@@ -30,4 +33,6 @@ async function aPokemon(pokeID) {
   return pokemon;
 }
 
-export default { fetchPokemonsData, apiSpritesURL, aPokemon };
+export default {
+  fetchPokemonsData, fetchPokemonsCount, apiSpritesURL, aPokemon,
+};
