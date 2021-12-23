@@ -1,6 +1,6 @@
 import './style.css';
 import pokeAPI from './pokeAPIHandler.js';
-import involmentAPI from './involmentAPIHandler.js';
+import involvementAPI from './involvementAPIHandler.js';
 
 const pokemonCardsSection = document.querySelector('.pokemon-cards');
 const pageLinks = document.querySelectorAll('.page-link');
@@ -57,6 +57,7 @@ closeModalButtons.forEach((button) => {
   });
 });
 
+
 // Comments in the modal popup
 const createComment = (comment) => {
   const line = document.createElement('hr');
@@ -91,13 +92,13 @@ async function displayComments(pokeID) {
   }; 
 }
 
-const createCard = (pokemonId, pokemon) => {
+const createCard = (pokemonId, pokemon, likes = 0) => {
   const cardDiv = document.createElement('div');
   cardDiv.classList = 'card col-md-3 d-flex flex-column overflow-hidden';
   cardDiv.id = pokemonId;
   cardDiv.innerHTML = `
   <button class="position-absolute bg-dark rounded-circle heart-btn">
-    <p class="text-white">0</p>
+    <p class="text-white">${likes}</p>
     <i class="far fa-heart"></i>
   </button>
   <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${pokemon.name
@@ -143,15 +144,26 @@ const changeLinks = (currentPage) => {
   currentPageElement.parentNode.classList.add('active');
 };
 
-const renderUI = (pageNumber) => {
+const getLikesForCurrentPage = async (pageNumber) => {
+  const result = await involvementAPI.getLikes().then((arr) => {
+    const pokeIdInPageStart = (pageNumber * pokemonsPerPage) - pokemonsPerPage + 1;
+    const pokeIdInPageEnd = pageNumber * pokemonsPerPage;
+    return arr.filter((obj) => obj.item_id >= pokeIdInPageStart && obj.item_id <= pokeIdInPageEnd);
+  });
+  return result;
+};
+
+const renderUI = async (pageNumber) => {
   pokemonCardsSection.innerHTML = '';
+  const likesArr = await getLikesForCurrentPage(pageNumber);
   pokeAPI.fetchPokemonsData(pageNumber).then((data) => {
     data.results.forEach((pokemon, index) => {
       let pokemonId = index + ((pageNumber - 1) * pokemonsPerPage) + 1;
       if (pokemonId >= 899) {
         pokemonId += 9102;
       }
-      const card = createCard(pokemonId, pokemon);
+      const likes = likesArr.find((obj) => obj.item_id === pokemonId)?.likes;
+      const card = createCard(pokemonId, pokemon, likes);
       pokemonCardsSection.appendChild(card);
     });
   });
