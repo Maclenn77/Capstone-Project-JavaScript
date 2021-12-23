@@ -8,7 +8,7 @@ let pageNum = 1;
 const pokemonsPerPage = 12;
 const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
-const closeModalButtons = document.querySelectorAll('[data-close-button]');
+const closeModalButtons = document.querySelectorAll('.close-button');
 const overlay = document.getElementById('overlay');
 let addComment = document.querySelector('#add-comment');
 const modalComments = document.querySelector('.modal-comments');
@@ -132,6 +132,7 @@ overlay.addEventListener('click', () => {
   });
 });
 
+console.log(closeModalButtons)
 closeModalButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const modal = button.closest('.modal');
