@@ -75,9 +75,7 @@ function openModal(modal, cardId) {
     const success = document.createElement('div');
     success.classList = 'success-message';
     success.textContent = 'Your comment was sent to us!';
-    alert(response);
     if (response === true) {
-      alert(success);
       addComment.parentElement.replaceWith(success);      
     };
   });
@@ -90,6 +88,16 @@ function closeModal(modal) {
   pokeHeader.removeChild(pokeHeader.firstChild);
   pokeHeader.removeChild(pokeHeader.lastChild);
   modalComments.innerHTML = '';
+  const success = document.querySelectorAll('.success-message');
+  if (success.length >= 1) {
+    const form = document.createElement('form');
+    form.classList = 'row flex-column';
+    form.innerHTML = `
+    <input type="text" class="mt-2 col-8" name="" id="username" placeholder="Your name">
+    <input type="text" class="mt-2 col-10" name="" id="insights" placeholder="Your insights">
+    <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
+    success[0].replaceWith(form);
+  };
 }
 
 overlay.addEventListener('click', () => {
