@@ -16,9 +16,9 @@ async function Comments(itemId) {
 async function postComment(itemId, username, comment) {
   const data = {
     item_id: itemId,
-    username: username,
-    comment: comment,
-  }
+    username,
+    comment,
+  };
   const commentURL = `${apiURL + apiKey}/comments`;
   const response = await fetch(commentURL, {
     method: 'POST',

@@ -72,14 +72,14 @@ function openModal(modal, cardId) {
     const username = document.getElementById('username').value;
     const insights = document.getElementById('insights').value;
     const response = await involvementAPI.postComment(cardId, username, insights);
-    const comment = {creation_date: 'Recently created', username: username, comment: insights};
+    const comment = { creation_date: 'Recently created', username, comment: insights };
     const success = document.createElement('div');
     success.classList = 'success-message';
     success.textContent = 'Your comment was sent to us!';
     if (response === true) {
       addComment.parentElement.replaceWith(success);
       createComment(comment);
-    };
+    }
   });
 }
 
@@ -100,7 +100,7 @@ function closeModal(modal) {
     <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
     success[0].replaceWith(form);
     addComment = document.querySelector('#add-comment');
-  };
+  }
 }
 
 overlay.addEventListener('click', () => {
