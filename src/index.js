@@ -30,7 +30,6 @@ function openModal(modal, cardId) {
   modal.classList.add('active');
   overlay.classList.add('active');
   displayDetails(cardId);
-<<<<<<< HEAD
   displayComments(cardId);
 
   addComment.addEventListener('click', async () => {
@@ -46,8 +45,6 @@ function openModal(modal, cardId) {
       addComment.parentElement.replaceWith(success);
     }
   });
-=======
->>>>>>> development
 }
 
 function closeModal(modal) {
