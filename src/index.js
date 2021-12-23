@@ -12,6 +12,7 @@ const closeModalButtons = document.querySelectorAll('.close-button');
 const modalComments = document.querySelector('.modal-comments');
 const overlay = document.getElementById('overlay');
 let addComment = document.querySelector('#add-comment');
+let pokeIdForOpenedModal = null;
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -34,8 +35,9 @@ const createComment = (comment) => {
 async function displayComments(pokeID) {
   const itemComments = await involvementAPI.Comments(pokeID);
   const header = document.createElement('p');
+  modalComments.innerHTML = '';
   header.classList = 'row';
-  if (await itemComments.length === undefined) {
+  if (!itemComments.length) {
     header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
     modalComments.appendChild(header);
   } else {
@@ -63,25 +65,29 @@ async function displayDetails(pokeID) {
 
 function openModal(modal, cardId) {
   if (modal == null) return;
+  pokeIdForOpenedModal = cardId;
   modal.classList.add('active');
   overlay.classList.add('active');
   displayDetails(cardId);
   displayComments(cardId);
-
-  addComment.addEventListener('click', async () => {
-    const username = document.getElementById('username').value;
-    const insights = document.getElementById('insights').value;
-    const response = await involvementAPI.postComment(cardId, username, insights);
-    const comment = { creation_date: 'Recently created', username, comment: insights };
-    const success = document.createElement('div');
-    success.classList = 'success-message';
-    success.textContent = 'Your comment was sent to us!';
-    createComment(comment);
-    if (response === true) {
-      addComment.parentElement.replaceWith(success);
-    }
-  });
 }
+
+addComment.addEventListener('click', async (e) => {
+  e.preventDefault();
+  addComment.disabled = true;
+  const username = document.getElementById('username').value;
+  const insights = document.getElementById('insights').value;
+  const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
+  const comment = { creation_date: 'Recently created', username, comment: insights };
+  document.querySelector('.comment-added-div').classList.add('active');
+  setTimeout(() => {
+    document.querySelector('.comment-added-div').classList.remove('active');
+  }, 2000);
+  createComment(comment);
+  if (await response === true) {
+    addComment.disabled = false;
+  }
+});
 
 function closeModal(modal) {
   if (modal == null) return;
@@ -100,6 +106,20 @@ function closeModal(modal) {
     <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
     success[0].replaceWith(form);
     addComment = document.querySelector('#add-comment');
+    addComment.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const insights = document.getElementById('insights').value;
+      const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
+      const comment = { creation_date: 'Recently created', username, comment: insights };
+      const success = document.createElement('div');
+      success.classList = 'success-message';
+      success.textContent = 'Your comment was sent to us!';
+      createComment(comment);
+      if (response === true) {
+        addComment.parentElement.replaceWith(success);
+      }
+    });
   }
 }
 
@@ -130,7 +150,7 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
 }'s image">
   <div class="card-body text-center mt-auto">
       <h4 class="card-title fs-4">${pokemon.name}</h4>
-      <a href="#" class="btn btn-outline-primary commentButton">Comments</a>
+      <a class="btn btn-outline-primary commentButton">Comments</a>
   </div>
   `;
   cardDiv.querySelector('.commentButton').addEventListener('click', () => {
