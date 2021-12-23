@@ -11,6 +11,7 @@ const pokeDetails = document.querySelectorAll('.details');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.getElementById('overlay');
 let addComment = document.querySelector('#add-comment');
+const modalComments = document.querySelector('.modal-comments');
 let pokeIdForOpenedModal = null;
 
 // Comments in the modal popup
@@ -86,6 +87,8 @@ addComment.addEventListener('click', async (e) => {
   if (await response === true) {
     addComment.disabled = false;
   }
+  document.getElementById('username').value = '';
+  document.getElementById('insights').value = '';
 });
 
 function closeModal(modal) {
