@@ -72,13 +72,13 @@ function openModal(modal, cardId) {
     const username = document.getElementById('username').value;
     const insights = document.getElementById('insights').value;
     const response = await involvementAPI.postComment(cardId, username, insights);
-    const comment = { creation_date: 'Recently created', username, comment: insights };
+    const comment = { creation_date: 'Recently created', username: username, comment: insights };
     const success = document.createElement('div');
     success.classList = 'success-message';
     success.textContent = 'Your comment was sent to us!';
+    createComment(comment);
     if (response === true) {
       addComment.parentElement.replaceWith(success);
-      createComment(comment);
     }
   });
 }
