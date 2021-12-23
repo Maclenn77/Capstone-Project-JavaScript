@@ -8,44 +8,8 @@ let pageNum = 1;
 const pokemonsPerPage = 12;
 const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
-const closeModalButtons = document.querySelectorAll('.close-button');
-const modalComments = document.querySelector('.modal-comments');
+const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.getElementById('overlay');
-let addComment = document.querySelector('#add-comment');
-
-// Comments in the modal popup
-const createComment = (comment) => {
-  const line = document.createElement('hr');
-  const date = document.createElement('span');
-  date.classList = 'col-3 comment-date';
-  date.textContent = `${comment.creation_date}`;
-  const username = document.createElement('span');
-  username.classList = 'col-3 comment-user';
-  username.textContent = `${comment.username}`;
-  const aComment = document.createElement('span');
-  aComment.classList = 'col-6 comment';
-  aComment.textContent = `${comment.comment}`;
-  modalComments.appendChild(date);
-  modalComments.appendChild(username);
-  modalComments.appendChild(aComment);
-  modalComments.appendChild(line);
-};
-
-async function displayComments(pokeID) {
-  const itemComments = await involvementAPI.Comments(pokeID);
-  const header = document.createElement('p');
-  header.classList = 'row';
-  if (await itemComments.length === undefined) {
-    header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
-    modalComments.appendChild(header);
-  } else {
-    header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
-    modalComments.appendChild(header);
-    itemComments.forEach((comment) => {
-      createComment(comment);
-    });
-  }
-}
 
 // Modal Functions
 
@@ -66,21 +30,6 @@ function openModal(modal, cardId) {
   modal.classList.add('active');
   overlay.classList.add('active');
   displayDetails(cardId);
-  displayComments(cardId);
-
-  addComment.addEventListener('click', async () => {
-    const username = document.getElementById('username').value;
-    const insights = document.getElementById('insights').value;
-    const response = await involvementAPI.postComment(cardId, username, insights);
-    const comment = { creation_date: 'Recently created', username, comment: insights };
-    const success = document.createElement('div');
-    success.classList = 'success-message';
-    success.textContent = 'Your comment was sent to us!';
-    if (response === true) {
-      addComment.parentElement.replaceWith(success);
-      createComment(comment);
-    }
-  });
 }
 
 function closeModal(modal) {
@@ -89,18 +38,6 @@ function closeModal(modal) {
   overlay.classList.remove('active');
   pokeHeader.removeChild(pokeHeader.firstChild);
   pokeHeader.removeChild(pokeHeader.lastChild);
-  modalComments.innerHTML = '';
-  const success = document.querySelectorAll('.success-message');
-  if (success.length >= 1) {
-    const form = document.createElement('form');
-    form.classList = 'row flex-column';
-    form.innerHTML = `
-    <input type="text" class="mt-2 col-8" name="" id="username" placeholder="Your name">
-    <input type="text" class="mt-2 col-10" name="" id="insights" placeholder="Your insights">
-    <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
-    success[0].replaceWith(form);
-    addComment = document.querySelector('#add-comment');
-  }
 }
 
 overlay.addEventListener('click', () => {
@@ -126,7 +63,8 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
     <p class="text-white">${likes}</p>
     <i class="far fa-heart"></i>
   </button>
-  <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${pokemon.name
+  <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${
+  pokemon.name
 }'s image">
   <div class="card-body text-center mt-auto">
       <h4 class="card-title fs-4">${pokemon.name}</h4>

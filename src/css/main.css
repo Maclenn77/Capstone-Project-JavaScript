@@ -46,11 +46,6 @@
   padding: 10px 15px;
 }
 
-.modal-body p {
-  font-size: 1.25rem;
-  margin-bottom: 5px;
-}
-
 #overlay {
   position: fixed;
   opacity: 0;
@@ -69,7 +64,6 @@
 }
 
 .nav-link,
-.h6,
 h2 {
   font-family: 'Press Start 2P', cursive;
   font-weight: 500;
