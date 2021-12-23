@@ -11,6 +11,7 @@ const pokeDetails = document.querySelectorAll('.details');
 const closeModalButtons = document.querySelectorAll('.close-button');
 const modalComments = document.querySelector('.modal-comments');
 const overlay = document.getElementById('overlay');
+const addComment = document.querySelector('#add-comment');
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -66,6 +67,12 @@ function openModal(modal, cardId) {
   overlay.classList.add('active');
   displayDetails(cardId);
   displayComments(cardId);
+
+  addComment.addEventListener('click', async () => {
+    const username = document.getElementById('username').value;
+    const comment = document.getElementById('insights').value;
+    involvementAPI.postComment(cardId, username, comment);
+  });
 }
 
 function closeModal(modal) {

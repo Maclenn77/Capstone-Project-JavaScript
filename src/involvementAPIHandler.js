@@ -22,6 +22,9 @@ async function postComment(itemId, username, comment) {
   const commentURL = `${apiURL + apiKey}/comments`;
   const response = await fetch(commentURL, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
     body: JSON.stringify(data),
   });
   return response;
