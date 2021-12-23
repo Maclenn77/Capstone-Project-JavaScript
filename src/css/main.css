@@ -126,13 +126,13 @@ h2 {
   color: red;
 }
 
-.heart-btn:disabled p,
-.heart-btn:disabled i{
-  color: gray!important;
-}
-
 .heart-btn i {
   font-size: 1.5em;
+}
+
+.heart-btn:disabled p,
+.heart-btn:disabled i {
+  color: gray !important;
 }
 
 .fas {
