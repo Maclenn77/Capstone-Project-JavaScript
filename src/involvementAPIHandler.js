@@ -13,4 +13,18 @@ async function Comments(itemId) {
   return listOfComments;
 }
 
-export default { getLikes, Comments };
+async function postComment(itemId, username, comment) {
+  const data = {
+    item_id: itemId,
+    username: username,
+    comment: comment,
+  }
+  const commentURL = `${apiURL + apiKey}/comments`;
+  const response = await fetch(commentURL, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return response;
+}
+
+export default { getLikes, Comments, postComment };
