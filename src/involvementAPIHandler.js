@@ -5,4 +5,12 @@ const getLikes = () => fetch(
   `${apiURL}${apiKey}/likes`,
 ).then((data) => data.json());
 
-export default { getLikes };
+const getComments = (itemId) => `${apiURL + apiKey}/comments?item_id=${itemId}`;
+
+async function Comments(itemId) {
+  let listOfComments = await fetch(getComments(itemId));
+  listOfComments = await listOfComments.json();
+  return listOfComments;
+}
+
+export default { getLikes, Comments };

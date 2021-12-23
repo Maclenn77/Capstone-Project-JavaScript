@@ -12,6 +12,40 @@ const closeModalButtons = document.querySelectorAll('.close-button');
 const modalComments = document.querySelector('.modal-comments');
 const overlay = document.getElementById('overlay');
 
+// Comments in the modal popup
+const createComment = (comment) => {
+  const line = document.createElement('hr');
+  const date = document.createElement('span');
+  date.classList = 'col-3 comment-date';
+  date.textContent = `${comment.creation_date}`;
+  const username = document.createElement('span');
+  username.classList = 'col-3 comment-user';
+  username.textContent = `${comment.username}`;
+  const aComment = document.createElement('span');
+  aComment.classList = 'col-6 comment';
+  aComment.textContent = `${comment.comment}`;
+  modalComments.appendChild(date);
+  modalComments.appendChild(username);
+  modalComments.appendChild(aComment);
+  modalComments.appendChild(line);
+};
+
+async function displayComments(pokeID) {
+  const itemComments = await involvementAPI.Comments(pokeID);
+  const header = document.createElement('p');
+  header.classList = 'row';
+  if (await itemComments.length === undefined) {
+    header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
+    modalComments.appendChild(header);
+  } else {
+    header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
+    modalComments.appendChild(header);
+    itemComments.forEach((comment) => {
+      createComment(comment);
+    });
+  }
+}
+
 // Modal Functions
 
 async function displayDetails(pokeID) {
@@ -57,41 +91,6 @@ closeModalButtons.forEach((button) => {
   });
 });
 
-
-// Comments in the modal popup
-const createComment = (comment) => {
-  const line = document.createElement('hr');
-  const date = document.createElement('span');
-  date.classList = 'col-3 comment-date';
-  date.textContent = `${comment.creation_date}`;
-  const username = document.createElement('span');
-  username.classList = 'col-3 comment-user';
-  username.textContent = `${comment.username}`;
-  const aComment = document.createElement('span');
-  aComment.classList = 'col-6 comment';
-  aComment.textContent = `${comment.comment}`;
-  modalComments.appendChild(date);
-  modalComments.appendChild(username);
-  modalComments.appendChild(aComment);
-  modalComments.appendChild(line);
-}
-
-async function displayComments(pokeID) {
-  const itemComments = await involmentAPI.Comments(pokeID);
-  const header = document.createElement('p');
-  header.classList = 'row';
-  if (await itemComments.length === undefined) {
-    header.innerHTML = `<span class='col-12 h6'>No comments yet</span>`;
-    modalComments.appendChild(header);
-  } else {
-    header.innerHTML = `<span class='col-3 h6'>Date</span><span class='col-3 h6'>User</span><span class='col-6 h6'>Comment</span>`;
-    modalComments.appendChild(header);
-    itemComments.forEach(comment => {
-      createComment(comment);
-    });
-  }; 
-}
-
 const createCard = (pokemonId, pokemon, likes = 0) => {
   const cardDiv = document.createElement('div');
   cardDiv.classList = 'card col-md-3 d-flex flex-column overflow-hidden';
@@ -102,7 +101,7 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
     <i class="far fa-heart"></i>
   </button>
   <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${pokemon.name
-    }'s image">
+}'s image">
   <div class="card-body text-center mt-auto">
       <h4 class="card-title fs-4">${pokemon.name}</h4>
       <a href="#" class="btn btn-outline-primary commentButton">Comments</a>
