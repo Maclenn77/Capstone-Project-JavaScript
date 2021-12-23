@@ -145,8 +145,8 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
   cardDiv.id = pokemonId;
   cardDiv.innerHTML = `
   <button class="position-absolute bg-dark rounded-circle heart-btn">
-    <p class="text-white">${likes}</p>
-    <i class="far fa-heart"></i>
+    <p class="text-white likes-counter fw-bold">${likes}</p>
+    <i class="${likes > 0?'fas':'far'} fa-heart"></i>
   </button>
   <img src="${pokeAPI.apiSpritesURL(pokemonId)}" class="card-img-top" alt="${
   pokemon.name
@@ -159,6 +159,18 @@ const createCard = (pokemonId, pokemon, likes = 0) => {
   cardDiv.querySelector('.commentButton').addEventListener('click', () => {
     const modal = document.querySelector('#modal');
     openModal(modal, cardDiv.id);
+  });
+  const LikesCounterDiv = cardDiv.querySelector('.likes-counter');
+  const likeBtn = cardDiv.querySelector('.heart-btn');
+  likeBtn.addEventListener('click', async () => {
+    likeBtn.disabled = true;
+    const response = await involvementAPI.postLike(cardDiv.id);
+    if(await response) {
+      likeBtn.disabled = false;
+      LikesCounterDiv.textContent = parseInt(LikesCounterDiv.textContent, 10) + 1;
+      LikesCounterDiv.nextElementSibling.classList.add('fas');
+      LikesCounterDiv.nextElementSibling.classList.add('far');
+    }
   });
   return cardDiv;
 };
@@ -204,7 +216,7 @@ const getLikesForCurrentPage = async (pageNumber) => {
 const renderUI = async (pageNumber) => {
   pokemonCardsSection.innerHTML = '';
   const likesArr = await getLikesForCurrentPage(pageNumber);
-  pokeAPI.fetchPokemonsData(pageNumber).then((data) => {
+  pokeAPI.fetchPokemonsData(pageNumber, pokemonsPerPage).then((data) => {
     data.results.forEach((pokemon, index) => {
       let pokemonId = index + ((pageNumber - 1) * pokemonsPerPage) + 1;
       if (pokemonId >= 899) {

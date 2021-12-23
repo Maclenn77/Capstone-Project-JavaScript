@@ -5,6 +5,19 @@ const getLikes = () => fetch(
   `${apiURL}${apiKey}/likes`,
 ).then((data) => data.json());
 
+const postLike = async (item_id) => {
+  const response = await fetch(`${apiURL}${apiKey}/likes`, {
+    method: 'POST',
+    body: JSON.stringify({
+      item_id: parseInt(item_id, 10),
+    }),
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  });
+  return response.ok;
+}
+
 const getComments = (itemId) => `${apiURL + apiKey}/comments?item_id=${itemId}`;
 
 async function Comments(itemId) {
@@ -30,4 +43,4 @@ async function postComment(itemId, username, comment) {
   return response.ok;
 }
 
-export default { getLikes, Comments, postComment };
+export default { getLikes, postLike, Comments, postComment };
