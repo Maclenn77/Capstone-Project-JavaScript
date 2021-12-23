@@ -1,6 +1,6 @@
 import './style.css';
 import pokeAPI from './pokeAPIHandler.js';
-import InvolmentAPI from './InvolmentAPIHandler.js';
+import involmentAPI from './involmentAPIHandler.js';
 
 const pokemonCardsSection = document.querySelector('.pokemon-cards');
 const pageLinks = document.querySelectorAll('.page-link');
@@ -76,7 +76,7 @@ const createComment = (comment) => {
 }
 
 async function displayComments(pokeID) {
-  const itemComments = await InvolmentAPI.Comments(pokeID);
+  const itemComments = await involmentAPI.Comments(pokeID);
   const header = document.createElement('p');
   header.classList = 'row';
   if (await itemComments.length === undefined) {
