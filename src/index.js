@@ -11,7 +11,7 @@ const pokeDetails = document.querySelectorAll('.details');
 const closeModalButtons = document.querySelectorAll('.close-button');
 const modalComments = document.querySelector('.modal-comments');
 const overlay = document.getElementById('overlay');
-const addComment = document.querySelector('#add-comment');
+let addComment = document.querySelector('#add-comment');
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -99,6 +99,7 @@ function closeModal(modal) {
     <input type="text" class="mt-2 col-10" name="" id="insights" placeholder="Your insights">
     <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
     success[0].replaceWith(form);
+    addComment = document.querySelector('#add-comment');
   };
 }
 
