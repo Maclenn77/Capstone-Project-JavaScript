@@ -30,11 +30,11 @@ main {
   transition: 200ms ease-in-out;
   border: 1px solid black;
   border-radius: 10px;
-  z-index: 10;
+  z-index: 4999;
   background-color: white;
   width: 500px;
   max-width: 80%;
-  height: 75vh;
+  max-height: 95vh;
   overflow: hidden;
 }
 
@@ -49,6 +49,7 @@ main {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
+  max-height: 26vh;
 }
 
 .modal-header .close-button {
@@ -68,6 +69,7 @@ main {
 
 .modal-body {
   padding: 10px 15px;
+  max-height: 15vh;
 }
 
 .modal-body p {
@@ -78,6 +80,10 @@ main {
 .modal-comments {
   max-height: 20vh;
   overflow-y: scroll;
+}
+
+form {
+  min-height: 40vh;
 }
 
 #overlay {

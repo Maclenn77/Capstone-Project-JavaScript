@@ -8,11 +8,12 @@ let pageNum = 1;
 const pokemonsPerPage = 12;
 const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
-const closeModalButtons = document.querySelectorAll('[data-close-button]');
+const closeModalButtons = document.querySelectorAll('.close-button');
 const overlay = document.getElementById('overlay');
 let addComment = document.querySelector('#add-comment');
 const modalComments = document.querySelector('.modal-comments');
 let pokeIdForOpenedModal = null;
+const number = document.querySelector('.number');
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -35,9 +36,11 @@ const createComment = (comment) => {
 async function displayComments(pokeID) {
   const itemComments = await involvementAPI.Comments(pokeID);
   const header = document.createElement('p');
+  let totalComments = await involvementAPI.totalComments(itemComments);
   modalComments.innerHTML = '';
   header.classList = 'row';
   if (!itemComments.length) {
+    number.innerHTML = `${totalComments}`;
     header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
     modalComments.appendChild(header);
   } else {
@@ -83,7 +86,9 @@ addComment.addEventListener('click', async (e) => {
   setTimeout(() => {
     document.querySelector('.comment-added-div').classList.remove('active');
   }, 2000);
-  createComment(comment);
+  header.innerHTML = '';
+  header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
+  displayComments(pokeIdForOpenedModal);
   if (await response === true) {
     addComment.disabled = false;
   }

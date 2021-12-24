@@ -30,12 +30,12 @@ async function postComment(itemId, username, comment) {
   return response.ok;
 }
 
-async function count(comments, itemId) {
-  const numberOfComments = await  Comments(itemId).length
+async function totalComments(listOfComments) {
+  const numberOfComments = await  listOfComments.length
   if (!numberOfComments) {
     return 0;
   }
   return numberOfComments;
 }
 
-export default { getLikes, Comments, postComment, count };
+export default { getLikes, Comments, postComment, totalComments };
