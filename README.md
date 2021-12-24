@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# My Pokémons
+# My Pokémons / A JavaScript Capstone Project
 
 > **Gotta Catch ’Em All!** With this web app, you can discover all the Pokémon around the Pokémon World, from Kanto to Lental. __Check 'em all!!!__ Give a like (or many :two_hearts: ) to your favorite Pokémons and share with the world what do you like more of them!
 
@@ -61,7 +61,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Usage
 
-Any change to the project should be done in the folder `src`. Once that you commit the changes, update the distro with `npm run build`.
+Any change to the project should be done in the folder `src`. Once that you commit the changes, update the distro with `npm run build`. For automatically building, use `npm run start --watch`.
 
 ### Run tests
 
@@ -75,7 +75,7 @@ Current tests for items and comments counters.
 
 ### Deployment
 
-Run **My Pokémons** from localhost with `npm start` or `npm run build`. 
+Run **My Pokémons** from localhost with `npm start` or `npm run start`. 
 
 ## Authors
 
