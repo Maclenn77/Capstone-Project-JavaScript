@@ -1,4 +1,4 @@
-function totalComments(listOfComments) {
+const totalComments = (listOfComments) => {
   const numberOfComments = listOfComments.length;
   if (!numberOfComments) {
     return 0;
