@@ -44,11 +44,11 @@ main {
 }
 
 .modal-header {
-  padding: 10px 15px;
+  padding: 0px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+  border: 10px solid black;
   max-height: 26vh;
 }
 
@@ -57,7 +57,7 @@ main {
   border: none;
   outline: none;
   background: none;
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
