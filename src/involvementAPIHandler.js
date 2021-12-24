@@ -1,10 +1,6 @@
 const apiKey = 'TwW5Jh5cVelAAo2KGW0U';
 const apiURL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
 
-// const getLikes = () => fetch(
-//   `${apiURL}${apiKey}/likes`,
-// ).then((data) => data.json());
-
 const getLikes = async () => {
   const data = await fetch(`${apiURL}${apiKey}/likes`);
   return data.json();
