@@ -59,8 +59,9 @@
             <div class="modal-comments mt-1 row"></div>
             <h4 class="w-100 text-center">Add new comment</h4>
             <form class="row flex-column">
-                <input type="text" class="mt-1 col-8" id="username" placeholder="Your name">
-                <input type="text" class="mt-1 col-10" id="insights" placeholder="Your insights">
+                <input type="text" class="mt-1 col-8" id="username" name="fname" placeholder="Your name">
+                <input type="text" class="mt-1 col-10" id="insights" name="fcomment" placeholder="Your insights">
+                <span id="alert-message"></span>
                 <button type="submit" class="btn mt-1 col-8 bg-success text-white border-dark rounded" id="add-comment">Comment</button>
             </form>
           </div>
