@@ -10,17 +10,28 @@ function Pokemon(name, height, weight, types, exp, image) {
   this.image = image;
 }
 
-const fetchPokemonsData = (pageNum, pokemonsPerPage) => fetch(
-  `${apiURL}?limit=${pokemonsPerPage}&offset=${
-    (pageNum - 1) * pokemonsPerPage
-  }`,
-).then((data) => data.json());
+// const fetchPokemonsData = (pageNum, pokemonsPerPage) => fetch(
+//   `${apiURL}?limit=${pokemonsPerPage}&offset=${
+//     (pageNum - 1) * pokemonsPerPage
+//   }`,
+// ).then((data) => data.json());
 
-const fetchPokemonsCount = () => fetch(
-  `${apiURL}?limit=100000`,
-).then((data) => data.json()).then((data) => data.count);
+const fetchPokemonsData = async (pageNum, pokemonsPerPage) => {
+  const data = await fetch(`${apiURL}?limit=${pokemonsPerPage}&offset=${(pageNum - 1) * pokemonsPerPage}`);
+  return data.json();
+}
 
-async function aPokemon(pokeID) {
+// const fetchPokemonsCount = () => (pageNum, pokemonsPerPage) => fetch
+//   `${apiURL}?limit=100000`,
+// ).then((data) => data.json()).then((data) => data.count);
+
+const fetchPokemonsCount = async ()  => {
+  let data = await fetch(`${apiURL}?limit=100000`);
+  data = await data.json();
+  return data.count;
+}
+
+const aPokemon = async (pokeID) => {
   const image = apiSpritesURL(pokeID);
   const pokeUrl = apiURL + pokeID;
   const types = [];

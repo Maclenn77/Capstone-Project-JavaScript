@@ -35,7 +35,7 @@ const createComment = (comment) => {
   modalComments.appendChild(line);
 };
 
-async function displayComments(pokeID) {
+const displayComments = async (pokeID) => {
   const itemComments = await involvementAPI.Comments(pokeID);
   const totalComments = await involvementAPI.totalComments(itemComments);
   modalComments.innerHTML = '';
@@ -53,7 +53,7 @@ async function displayComments(pokeID) {
   }
 }
 
-function validateName() {
+const  validateName = () => {
   const name = document.getElementById('username').value;
   if (name === '') {
     alertMessage.innerHTML = 'Name must be filled out';
@@ -62,7 +62,7 @@ function validateName() {
   return true;
 }
 
-function validateComment() {
+const validateComment = () => {
   const comment = document.getElementById('insights').value;
   if (comment === '') {
     alertMessage.innerHTML = 'Comment must be filled out';
@@ -71,9 +71,9 @@ function validateComment() {
   return true;
 }
 
-// Modal Functions
+// Modal Functions                                  
 
-async function displayDetails(pokeID) {
+const displayDetails = async (pokeID) => {
   pokeDetails.forEach((span) => {
     span.innerHTML = 'Downloading info...';
   });
@@ -88,7 +88,7 @@ async function displayDetails(pokeID) {
   });
 }
 
-function openModal(modal, cardId) {
+const openModal = (modal, cardId) => {
   if (modal == null) return;
   pokeIdForOpenedModal = cardId;
   modal.classList.add('active');
@@ -102,7 +102,7 @@ addComment.addEventListener('click', async (e) => {
   const validate = validateName() && validateComment();
   if (!validate) {
     return;
-  }
+  } 
   alertMessage.innerHTML = '';
   addComment.disabled = true;
   const username = document.getElementById('username').value;
@@ -122,7 +122,7 @@ addComment.addEventListener('click', async (e) => {
   document.getElementById('insights').value = '';
 });
 
-function closeModal(modal) {
+const closeModal = (modal) => {
   if (modal == null) return;
   modal.classList.remove('active');
   overlay.classList.remove('active');
