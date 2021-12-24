@@ -31,11 +31,13 @@ async function postComment(itemId, username, comment) {
 }
 
 async function totalComments(listOfComments) {
-  const numberOfComments = await  listOfComments.length
+  const numberOfComments = await listOfComments.length;
   if (!numberOfComments) {
     return 0;
   }
   return numberOfComments;
 }
 
-export default { getLikes, Comments, postComment, totalComments };
+export default {
+  getLikes, Comments, postComment, totalComments,
+};

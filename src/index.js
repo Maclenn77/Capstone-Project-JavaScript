@@ -1,7 +1,7 @@
 import './style.css';
+import { indexOf } from 'lodash';
 import pokeAPI from './pokeAPIHandler.js';
 import involvementAPI from './involvementAPIHandler.js';
-import { indexOf } from 'lodash';
 
 const pokemonCardsSection = document.querySelector('.pokemon-cards');
 const pageLinks = document.querySelectorAll('.page-link');
@@ -11,11 +11,11 @@ const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
 const closeModalButtons = document.querySelectorAll('.close-button');
 const overlay = document.getElementById('overlay');
-let addComment = document.querySelector('#add-comment');
+const addComment = document.querySelector('#add-comment');
 const modalComments = document.querySelector('.modal-comments');
 let pokeIdForOpenedModal = null;
 const number = document.querySelector('.number');
-let header = document.createElement('h6');
+const header = document.createElement('h6');
 const pokeImage = document.getElementById('pokeimage');
 
 // Comments in the modal popup
@@ -38,7 +38,7 @@ const createComment = (comment) => {
 
 async function displayComments(pokeID) {
   const itemComments = await involvementAPI.Comments(pokeID);
-  let totalComments = await involvementAPI.totalComments(itemComments);
+  const totalComments = await involvementAPI.totalComments(itemComments);
   modalComments.innerHTML = '';
   number.innerHTML = `${totalComments}`;
   header.classList = 'row';
@@ -58,12 +58,12 @@ async function displayComments(pokeID) {
 
 async function displayDetails(pokeID) {
   pokeDetails.forEach((span) => {
-    span.innerHTML = 'Downloading info...'
+    span.innerHTML = 'Downloading info...';
   });
   let pokemon = await pokeAPI.aPokemon(pokeID);
   pokeImage.setAttribute('src', `${pokemon.image}`);
   pokeImage.setAttribute('alt', `A sprite of ${pokemon.name}`);
-  pokemon = [pokemon.name + ', ' + '# ' + pokeID, pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
+  pokemon = [`${pokemon.name}, ` + `# ${pokeID}`, pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
   let i = 0;
   pokeDetails.forEach((span) => {
     span.innerHTML = pokemon[i];
