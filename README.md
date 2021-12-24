@@ -38,6 +38,10 @@ This web app allows users to give likes and comments to their favorite Pokémons
 
 [Check here the Live Demo!](https://maclenn77.github.io/Capstone-Project-JavaScript/)
 
+## Video showing all features
+
+Check [here](https://drive.google.com/file/d/1qNwXJQWPB6rSuruEU0Y-Tbx1Mq8JtQq3/view?usp=sharing)!
+
 
 ## Getting Started
 
