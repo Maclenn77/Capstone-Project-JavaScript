@@ -1,9 +1,10 @@
 const apiKey = 'TwW5Jh5cVelAAo2KGW0U';
 const apiURL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
 
-const getLikes = () => fetch(
-  `${apiURL}${apiKey}/likes`,
-).then((data) => data.json());
+const getLikes = async () => {
+  const data = await fetch(`${apiURL}${apiKey}/likes`);
+  return data.json();
+};
 
 const postLike = async (id) => {
   const response = await fetch(`${apiURL}${apiKey}/likes`, {
@@ -20,13 +21,13 @@ const postLike = async (id) => {
 
 const getComments = (itemId) => `${apiURL + apiKey}/comments?item_id=${itemId}`;
 
-async function Comments(itemId) {
+const Comments = async (itemId) => {
   let listOfComments = await fetch(getComments(itemId));
   listOfComments = await listOfComments.json();
   return listOfComments;
-}
+};
 
-async function postComment(itemId, username, comment) {
+const postComment = async (itemId, username, comment) => {
   const data = {
     item_id: itemId,
     username,
@@ -41,15 +42,15 @@ async function postComment(itemId, username, comment) {
     body: JSON.stringify(data),
   });
   return response.ok;
-}
+};
 
-async function totalComments(listOfComments) {
+const totalComments = async (listOfComments) => {
   const numberOfComments = await listOfComments.length;
   if (!numberOfComments) {
     return 0;
   }
   return numberOfComments;
-}
+};
 
 export default {
   getLikes, Comments, postComment, totalComments, postLike,

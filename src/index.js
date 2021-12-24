@@ -35,7 +35,7 @@ const createComment = (comment) => {
   modalComments.appendChild(line);
 };
 
-async function displayComments(pokeID) {
+const displayComments = async (pokeID) => {
   const itemComments = await involvementAPI.Comments(pokeID);
   const totalComments = await involvementAPI.totalComments(itemComments);
   modalComments.innerHTML = '';
@@ -51,29 +51,29 @@ async function displayComments(pokeID) {
       createComment(comment);
     });
   }
-}
+};
 
-function validateName() {
+const validateName = () => {
   const name = document.getElementById('username').value;
   if (name === '') {
     alertMessage.innerHTML = 'Name must be filled out';
     return false;
   }
   return true;
-}
+};
 
-function validateComment() {
+const validateComment = () => {
   const comment = document.getElementById('insights').value;
   if (comment === '') {
     alertMessage.innerHTML = 'Comment must be filled out';
     return false;
   }
   return true;
-}
+};
 
 // Modal Functions
 
-async function displayDetails(pokeID) {
+const displayDetails = async (pokeID) => {
   pokeDetails.forEach((span) => {
     span.innerHTML = 'Downloading info...';
   });
@@ -86,16 +86,16 @@ async function displayDetails(pokeID) {
     span.innerHTML = pokemon[i];
     i += 1;
   });
-}
+};
 
-function openModal(modal, cardId) {
+const openModal = (modal, cardId) => {
   if (modal == null) return;
   pokeIdForOpenedModal = cardId;
   modal.classList.add('active');
   overlay.classList.add('active');
   displayDetails(cardId);
   displayComments(cardId);
-}
+};
 
 addComment.addEventListener('click', async (e) => {
   e.preventDefault();
@@ -122,11 +122,11 @@ addComment.addEventListener('click', async (e) => {
   document.getElementById('insights').value = '';
 });
 
-function closeModal(modal) {
+const closeModal = (modal) => {
   if (modal == null) return;
   modal.classList.remove('active');
   overlay.classList.remove('active');
-}
+};
 
 overlay.addEventListener('click', () => {
   const modals = document.querySelectorAll('.modal.active');
