@@ -35,7 +35,7 @@ main {
   width: 500px;
   max-width: 80%;
   max-height: 95vh;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .modal.active {
@@ -44,12 +44,10 @@ main {
 }
 
 .modal-header {
-  padding: 0px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 0;
   border: 10px solid black;
-  max-height: 26vh;
+  max-height: 20%;
+  min-height: 100px;
 }
 
 .modal-header .close-button {
@@ -62,14 +60,12 @@ main {
 }
 
 .modal-header img {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 150px;
+  max-width: 120px;
 }
 
 .modal-body {
   padding: 10px 15px;
-  max-height: 15vh;
+  max-height: 15%;
 }
 
 .modal-body p {
@@ -83,7 +79,7 @@ main {
 }
 
 form {
-  min-height: 40vh;
+  min-height: 40%;
 }
 
 #overlay {

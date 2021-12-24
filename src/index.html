@@ -42,22 +42,25 @@
         </section>
        <!-- Modal Popup -->
         <div class="modal container bg-warning" id="modal">
-          <div class="modal-header bg-white row">
-            <button type="button" class="close-button col-2">&times;</button>
+          <div class="modal-header bg-white row m-1 justify-content-between align-items-start">
+            <img class="col-10" id="pokeimage">
+            <button type="button" class="close-button col-2 ml-auto">&times;</button>
           </div>
           <div class="modal-body row">
+            <h2 class="col-10"><span class="details"></span></h2>
+            <div class="col-2"></div>
             <p class='col-6'>Height: <span class="details"></span></p>
             <p class='col-6'>Weight: <span class="details"></span></p>
             <div class='w-100'></div>
             <p class='col-6'>Type: <span class="details"></span></p>
             <p class='col-6'>Base Experience: <span class="details"></span></p>
-            <h2 class="w-100 text-center mt-2">Comments ( <span class="number text-danger"></span> )</h2>
-            <div class="modal-comments mt-4 row"></div>
-            <h2 class="w-100 text-center">Add new comment</h2>
+            <h4 class="w-100 text-center mt-1">Comments ( <span class="number text-danger"></span> )</h4>
+            <div class="modal-comments mt-1 row"></div>
+            <h4 class="w-100 text-center">Add new comment</h4>
             <form class="row flex-column">
-                <input type="text" class="mt-2 col-8" id="username" placeholder="Your name">
-                <input type="text" class="mt-2 col-10" id="insights" placeholder="Your insights">
-                <button type="submit" class="mt-2 col-8 bg-dark text-white" id="add-comment">Comment</button>
+                <input type="text" class="mt-1 col-8" id="username" placeholder="Your name">
+                <input type="text" class="mt-1 col-10" id="insights" placeholder="Your insights">
+                <button type="submit" class="btn mt-1 col-8 bg-success text-white border-dark rounded" id="add-comment">Comment</button>
             </form>
           </div>
         </div>

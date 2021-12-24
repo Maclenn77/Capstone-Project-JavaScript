@@ -1,6 +1,7 @@
 import './style.css';
 import pokeAPI from './pokeAPIHandler.js';
 import involvementAPI from './involvementAPIHandler.js';
+import { indexOf } from 'lodash';
 
 const pokemonCardsSection = document.querySelector('.pokemon-cards');
 const pageLinks = document.querySelectorAll('.page-link');
@@ -15,6 +16,7 @@ const modalComments = document.querySelector('.modal-comments');
 let pokeIdForOpenedModal = null;
 const number = document.querySelector('.number');
 let header = document.createElement('h6');
+const pokeImage = document.getElementById('pokeimage');
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -55,10 +57,13 @@ async function displayComments(pokeID) {
 // Modal Functions
 
 async function displayDetails(pokeID) {
+  pokeDetails.forEach((span) => {
+    span.innerHTML = 'Downloading info...'
+  });
   let pokemon = await pokeAPI.aPokemon(pokeID);
-  pokeHeader.insertAdjacentHTML('beforeend', `<h2 class='col-12'>${pokemon.name.toUpperCase()}, #${pokeID}</p>`);
-  pokeHeader.insertAdjacentHTML('afterbegin', `<img src='${pokemon.image}' alt='A sprite of ${pokemon.name}' class='col-10'>`);
-  pokemon = [pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
+  pokeImage.setAttribute('src', `${pokemon.image}`);
+  pokeImage.setAttribute('alt', `A sprite of ${pokemon.name}`);
+  pokemon = [pokemon.name + ', ' + '# ' + pokeID, pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
   let i = 0;
   pokeDetails.forEach((span) => {
     span.innerHTML = pokemon[i];
@@ -100,8 +105,6 @@ function closeModal(modal) {
   if (modal == null) return;
   modal.classList.remove('active');
   overlay.classList.remove('active');
-  pokeHeader.removeChild(pokeHeader.firstChild);
-  pokeHeader.removeChild(pokeHeader.lastChild);
 }
 
 overlay.addEventListener('click', () => {
