@@ -52,5 +52,5 @@ async function totalComments(listOfComments) {
 }
 
 export default {
-  getLikes, Comments, postComment, totalComments,
+  getLikes, Comments, postComment, totalComments, postLike,
 };

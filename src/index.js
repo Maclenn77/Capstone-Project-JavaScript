@@ -1,5 +1,4 @@
 import './style.css';
-import { indexOf } from 'lodash';
 import pokeAPI from './pokeAPIHandler.js';
 import involvementAPI from './involvementAPIHandler.js';
 
@@ -7,7 +6,6 @@ const pokemonCardsSection = document.querySelector('.pokemon-cards');
 const pageLinks = document.querySelectorAll('.page-link');
 let pageNum = 1;
 const pokemonsPerPage = 12;
-const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
 const closeModalButtons = document.querySelectorAll('.close-button');
 const overlay = document.getElementById('overlay');
@@ -63,7 +61,7 @@ async function displayDetails(pokeID) {
   let pokemon = await pokeAPI.aPokemon(pokeID);
   pokeImage.setAttribute('src', `${pokemon.image}`);
   pokeImage.setAttribute('alt', `A sprite of ${pokemon.name}`);
-  pokemon = [`${pokemon.name}, ` + `# ${pokeID}`, pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
+  pokemon = [`${pokemon.name}, # ${pokeID}`, pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
   let i = 0;
   pokeDetails.forEach((span) => {
     span.innerHTML = pokemon[i];
@@ -86,7 +84,6 @@ addComment.addEventListener('click', async (e) => {
   const username = document.getElementById('username').value;
   const insights = document.getElementById('insights').value;
   const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
-  const comment = { creation_date: 'Recently created', username, comment: insights };
   document.querySelector('.comment-added-div').classList.add('active');
   setTimeout(() => {
     document.querySelector('.comment-added-div').classList.remove('active');

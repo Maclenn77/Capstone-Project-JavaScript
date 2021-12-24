@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime';
 import api from '../involvementAPIHandler.js';
 
 jest.mock('../involvementAPIHandler.js');
