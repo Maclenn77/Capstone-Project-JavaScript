@@ -1,0 +1,142 @@
+.comment-added-div {
+  position: fixed;
+  top: -72px;
+  left: 42%;
+  z-index: 5000;
+  background-color: #a6f1a6;
+  border: 1px solid green;
+  padding: 10px 20px 30px 20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: all 500ms;
+  font-size: 1em;
+}
+
+.comment-added-div.active {
+  transform: translateY(100%);
+}
+
+main {
+  margin-top: 5rem;
+}
+
+/* Modal style */
+.modal {
+  font-family: 'VT323', monospace;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 4999;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+  max-height: 95vh;
+  overflow: auto;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+  display: block;
+}
+
+.modal-header {
+  padding: 0;
+  border: 10px solid black;
+  max-height: 20%;
+  min-height: 100px;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.modal-header img {
+  max-width: 120px;
+}
+
+.modal-body {
+  padding: 10px 15px;
+  max-height: 15%;
+}
+
+.modal-body p {
+  font-size: 1.25rem;
+  margin-bottom: 5px;
+}
+
+.modal-comments {
+  max-height: 20vh;
+  overflow-y: scroll;
+}
+
+form {
+  min-height: 40%;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.nav-link,
+h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.card-title {
+  font-family: 'VT323', monospace;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.heart-btn {
+  color: white;
+  width: 150px;
+  height: 150px;
+  right: -60px;
+  top: -60px;
+  padding-right: 45px;
+  padding-top: 45px;
+}
+
+.heart-btn:hover {
+  color: red;
+}
+
+.heart-btn i {
+  font-size: 1.5em;
+}
+
+.heart-btn:disabled p,
+.heart-btn:disabled i {
+  color: gray !important;
+}
+
+.fas {
+  color: red;
+}
