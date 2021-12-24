@@ -14,6 +14,7 @@ let addComment = document.querySelector('#add-comment');
 const modalComments = document.querySelector('.modal-comments');
 let pokeIdForOpenedModal = null;
 const number = document.querySelector('.number');
+let header = document.createElement('h6');
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -35,16 +36,14 @@ const createComment = (comment) => {
 
 async function displayComments(pokeID) {
   const itemComments = await involvementAPI.Comments(pokeID);
-  const header = document.createElement('p');
   let totalComments = await involvementAPI.totalComments(itemComments);
   modalComments.innerHTML = '';
+  number.innerHTML = `${totalComments}`;
   header.classList = 'row';
-  if (!itemComments.length) {
-    number.innerHTML = `${totalComments}`;
+  if (totalComments === 0) {
     header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
     modalComments.appendChild(header);
   } else {
-    number.innerHTML = `${totalComments}`;
     header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
     modalComments.appendChild(header);
     itemComments.forEach((comment) => {
@@ -90,7 +89,7 @@ addComment.addEventListener('click', async (e) => {
   header.innerHTML = '';
   header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
   displayComments(pokeIdForOpenedModal);
-  if (await response === true) {
+  if (response === true) {
     addComment.disabled = false;
   }
   document.getElementById('username').value = '';
@@ -103,32 +102,6 @@ function closeModal(modal) {
   overlay.classList.remove('active');
   pokeHeader.removeChild(pokeHeader.firstChild);
   pokeHeader.removeChild(pokeHeader.lastChild);
-  modalComments.innerHTML = '';
-  const success = document.querySelectorAll('.success-message');
-  if (success.length >= 1) {
-    const form = document.createElement('form');
-    form.classList = 'row flex-column';
-    form.innerHTML = `
-    <input type="text" class="mt-2 col-8" name="" id="username" placeholder="Your name">
-    <input type="text" class="mt-2 col-10" name="" id="insights" placeholder="Your insights">
-    <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
-    success[0].replaceWith(form);
-    addComment = document.querySelector('#add-comment');
-    addComment.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const insights = document.getElementById('insights').value;
-      const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
-      const comment = { creation_date: 'Recently created', username, comment: insights };
-      const success = document.createElement('div');
-      success.classList = 'success-message';
-      success.textContent = 'Your comment was sent to us!';
-      createComment(comment);
-      if (response === true) {
-        addComment.parentElement.replaceWith(success);
-      }
-    });
-  }
 }
 
 overlay.addEventListener('click', () => {
