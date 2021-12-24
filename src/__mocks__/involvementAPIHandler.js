@@ -4,6 +4,6 @@ const totalComments = (listOfComments) => {
     return 0;
   }
   return numberOfComments;
-}
+};
 
 export default { totalComments };

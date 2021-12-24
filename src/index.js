@@ -51,16 +51,16 @@ const displayComments = async (pokeID) => {
       createComment(comment);
     });
   }
-}
+};
 
-const  validateName = () => {
+const validateName = () => {
   const name = document.getElementById('username').value;
   if (name === '') {
     alertMessage.innerHTML = 'Name must be filled out';
     return false;
   }
   return true;
-}
+};
 
 const validateComment = () => {
   const comment = document.getElementById('insights').value;
@@ -69,9 +69,9 @@ const validateComment = () => {
     return false;
   }
   return true;
-}
+};
 
-// Modal Functions                                  
+// Modal Functions
 
 const displayDetails = async (pokeID) => {
   pokeDetails.forEach((span) => {
@@ -86,7 +86,7 @@ const displayDetails = async (pokeID) => {
     span.innerHTML = pokemon[i];
     i += 1;
   });
-}
+};
 
 const openModal = (modal, cardId) => {
   if (modal == null) return;
@@ -95,14 +95,14 @@ const openModal = (modal, cardId) => {
   overlay.classList.add('active');
   displayDetails(cardId);
   displayComments(cardId);
-}
+};
 
 addComment.addEventListener('click', async (e) => {
   e.preventDefault();
   const validate = validateName() && validateComment();
   if (!validate) {
     return;
-  } 
+  }
   alertMessage.innerHTML = '';
   addComment.disabled = true;
   const username = document.getElementById('username').value;
@@ -126,7 +126,7 @@ const closeModal = (modal) => {
   if (modal == null) return;
   modal.classList.remove('active');
   overlay.classList.remove('active');
-}
+};
 
 overlay.addEventListener('click', () => {
   const modals = document.querySelectorAll('.modal.active');
