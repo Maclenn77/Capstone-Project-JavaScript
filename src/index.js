@@ -15,6 +15,7 @@ let pokeIdForOpenedModal = null;
 const number = document.querySelector('.number');
 const header = document.createElement('h6');
 const pokeImage = document.getElementById('pokeimage');
+const alertMessage = document.getElementById('alert-message');
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -52,6 +53,24 @@ async function displayComments(pokeID) {
   }
 }
 
+function validateName() {
+  const name = document.getElementById('username').value;
+  if (name === '') {
+    alertMessage.innerHTML = 'Name must be filled out';
+    return false;
+  }
+  return true;
+}
+
+function validateComment() {
+  const comment = document.getElementById('insights').value;
+  if (comment === '') {
+    alertMessage.innerHTML = 'Comment must be filled out';
+    return false;
+  }
+  return true;
+}
+
 // Modal Functions
 
 async function displayDetails(pokeID) {
@@ -80,6 +99,11 @@ function openModal(modal, cardId) {
 
 addComment.addEventListener('click', async (e) => {
   e.preventDefault();
+  const validate = validateName() && validateComment();
+  if (!validate) {
+    return;
+  }
+  alertMessage.innerHTML = '';
   addComment.disabled = true;
   const username = document.getElementById('username').value;
   const insights = document.getElementById('insights').value;
