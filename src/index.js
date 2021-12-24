@@ -44,6 +44,7 @@ async function displayComments(pokeID) {
     header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
     modalComments.appendChild(header);
   } else {
+    number.innerHTML = `${totalComments}`;
     header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
     modalComments.appendChild(header);
     itemComments.forEach((comment) => {

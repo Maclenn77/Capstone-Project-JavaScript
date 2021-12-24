@@ -1,19 +1,17 @@
 import 'regenerator-runtime/runtime'
-import api from './involvementAPIHandler.js';
-jest.mock('./__mocks__/involvementAPIHandler');
+import api from '../involvementAPIHandler.js';
 
-const data = JSON.stringify(undefined);
+jest.mock('../involvementAPIHandler.js');
 
-const data1 = undefined;
+const data = '';
 
-// JSON.stringify([{
-//     creation_date: 22-10-22,
-//     username: 'Tester',
-//     comment: 'This is a test comment'
-//   }]
-// );
+const data1 = [{
+    creation_date: 22-10-22,
+    username: 'Tester',
+    comment: 'This is a test comment'
+  }];
 
-const data5 = JSON.stringify([{
+const data5 = [{
   creation_date: 22-10-22,
   username: 'Tester',
   comment: 'This is a test comment'
@@ -37,21 +35,21 @@ const data5 = JSON.stringify([{
     creation_date: 22-10-22,
     username: 'Tester',
     comment: 'This is a test comment'
-  }]
-);
+  }];
 
 describe('Tests for count the number of comments fetched of a list of comments', () => {
-  test('return 0 when Comments return undefined', async () => {
-      console.log(data.length);
-      await expect(api.totalComments(data)).toBe(0);
+  test('return 0 when there an empty object', async () => {
+      const test = data;
+      await expect(api.totalComments(test)).toBe(0);
   });
 
   test('return 1 when there is one comment', async () => {
-    const test = data1.json();
+    const test = data1
     await expect(api.totalComments(test)).toBe(1);
   });
 
   test('return 5 when there is five comments', async () => {
-    await expect(api.totalComments(Comments(data5))).toBe(5);
+    const test = data5
+    await expect(api.totalComments(test)).toBe(5);
   });
 });
