@@ -30,12 +30,12 @@ main {
   transition: 200ms ease-in-out;
   border: 1px solid black;
   border-radius: 10px;
-  z-index: 10;
+  z-index: 4999;
   background-color: white;
   width: 500px;
   max-width: 80%;
-  height: 75vh;
-  overflow: hidden;
+  max-height: 95vh;
+  overflow: auto;
 }
 
 .modal.active {
@@ -44,11 +44,10 @@ main {
 }
 
 .modal-header {
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid black;
+  padding: 0;
+  border: 10px solid black;
+  max-height: 20%;
+  min-height: 100px;
 }
 
 .modal-header .close-button {
@@ -56,18 +55,17 @@ main {
   border: none;
   outline: none;
   background: none;
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
 .modal-header img {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 150px;
+  max-width: 120px;
 }
 
 .modal-body {
   padding: 10px 15px;
+  max-height: 15%;
 }
 
 .modal-body p {
@@ -78,6 +76,10 @@ main {
 .modal-comments {
   max-height: 20vh;
   overflow-y: scroll;
+}
+
+form {
+  min-height: 40%;
 }
 
 #overlay {

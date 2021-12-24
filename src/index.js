@@ -6,13 +6,15 @@ const pokemonCardsSection = document.querySelector('.pokemon-cards');
 const pageLinks = document.querySelectorAll('.page-link');
 let pageNum = 1;
 const pokemonsPerPage = 12;
-const pokeHeader = document.querySelector('.modal-header');
 const pokeDetails = document.querySelectorAll('.details');
 const closeModalButtons = document.querySelectorAll('.close-button');
 const overlay = document.getElementById('overlay');
-let addComment = document.querySelector('#add-comment');
+const addComment = document.querySelector('#add-comment');
 const modalComments = document.querySelector('.modal-comments');
 let pokeIdForOpenedModal = null;
+const number = document.querySelector('.number');
+const header = document.createElement('h6');
+const pokeImage = document.getElementById('pokeimage');
 
 // Comments in the modal popup
 const createComment = (comment) => {
@@ -34,10 +36,11 @@ const createComment = (comment) => {
 
 async function displayComments(pokeID) {
   const itemComments = await involvementAPI.Comments(pokeID);
-  const header = document.createElement('p');
+  const totalComments = await involvementAPI.totalComments(itemComments);
   modalComments.innerHTML = '';
+  number.innerHTML = `${totalComments}`;
   header.classList = 'row';
-  if (!itemComments.length) {
+  if (totalComments === 0) {
     header.innerHTML = '<span class=\'col-12 h6\'>No comments yet</span>';
     modalComments.appendChild(header);
   } else {
@@ -52,10 +55,13 @@ async function displayComments(pokeID) {
 // Modal Functions
 
 async function displayDetails(pokeID) {
+  pokeDetails.forEach((span) => {
+    span.innerHTML = 'Downloading info...';
+  });
   let pokemon = await pokeAPI.aPokemon(pokeID);
-  pokeHeader.insertAdjacentHTML('beforeend', `<h2 class='col-12'>${pokemon.name.toUpperCase()}, #${pokeID}</p>`);
-  pokeHeader.insertAdjacentHTML('afterbegin', `<img src='${pokemon.image}' alt='A sprite of ${pokemon.name}' class='col-10'>`);
-  pokemon = [pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
+  pokeImage.setAttribute('src', `${pokemon.image}`);
+  pokeImage.setAttribute('alt', `A sprite of ${pokemon.name}`);
+  pokemon = [`${pokemon.name}, # ${pokeID}`, pokemon.height, pokemon.weight, pokemon.types, pokemon.exp];
   let i = 0;
   pokeDetails.forEach((span) => {
     span.innerHTML = pokemon[i];
@@ -78,13 +84,14 @@ addComment.addEventListener('click', async (e) => {
   const username = document.getElementById('username').value;
   const insights = document.getElementById('insights').value;
   const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
-  const comment = { creation_date: 'Recently created', username, comment: insights };
   document.querySelector('.comment-added-div').classList.add('active');
   setTimeout(() => {
     document.querySelector('.comment-added-div').classList.remove('active');
   }, 2000);
-  createComment(comment);
-  if (await response === true) {
+  header.innerHTML = '';
+  header.innerHTML = '<span class=\'col-3 h6\'>Date</span><span class=\'col-3 h6\'>User</span><span class=\'col-6 h6\'>Comment</span>';
+  displayComments(pokeIdForOpenedModal);
+  if (response === true) {
     addComment.disabled = false;
   }
   document.getElementById('username').value = '';
@@ -95,34 +102,6 @@ function closeModal(modal) {
   if (modal == null) return;
   modal.classList.remove('active');
   overlay.classList.remove('active');
-  pokeHeader.removeChild(pokeHeader.firstChild);
-  pokeHeader.removeChild(pokeHeader.lastChild);
-  modalComments.innerHTML = '';
-  const success = document.querySelectorAll('.success-message');
-  if (success.length >= 1) {
-    const form = document.createElement('form');
-    form.classList = 'row flex-column';
-    form.innerHTML = `
-    <input type="text" class="mt-2 col-8" name="" id="username" placeholder="Your name">
-    <input type="text" class="mt-2 col-10" name="" id="insights" placeholder="Your insights">
-    <button type="submit" class="mt-2 col-8" id="add-comment">Comment</button>`;
-    success[0].replaceWith(form);
-    addComment = document.querySelector('#add-comment');
-    addComment.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const insights = document.getElementById('insights').value;
-      const response = await involvementAPI.postComment(pokeIdForOpenedModal, username, insights);
-      const comment = { creation_date: 'Recently created', username, comment: insights };
-      const success = document.createElement('div');
-      success.classList = 'success-message';
-      success.textContent = 'Your comment was sent to us!';
-      createComment(comment);
-      if (response === true) {
-        addComment.parentElement.replaceWith(success);
-      }
-    });
-  }
 }
 
 overlay.addEventListener('click', () => {
